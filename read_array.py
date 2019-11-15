@@ -5,9 +5,11 @@ import sys
 
 # Iterates though all people in the AddressBook and prints info about them.
 def ListEntries(array):
-  for entry in array.entries:
-    print("  key:", entry.key)
-    print("  value:", entry.value)
+  for myset in array.sets:
+   print("Timestamp:", myset.timestamp)
+   for entry in myset.entries:
+     print("  key:", entry.key)
+     print("  value:", entry.value)
 
 # Main procedure:  Reads the entire address book from a file and prints all
 #   the information inside.
@@ -22,5 +24,4 @@ f = open(sys.argv[1], "rb")
 array.ParseFromString(f.read())
 f.close()
 
-print("Timestamp:", entry.timestamp)
 ListEntries(array)
