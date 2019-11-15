@@ -7,7 +7,11 @@ message entry {
   required int32 value = 2;
 }
 
-message array {
+message myset {
   required int32 timestamp = 1;
   repeated entry entries = 2;
+}
+
+message array {
+  repeated myset sets = 1;
 }

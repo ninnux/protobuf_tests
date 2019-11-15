@@ -11,7 +11,6 @@ if len(sys.argv) != 2:
   print("Usage:", sys.argv[0], "ADDRESS_BOOK_FILE")
   sys.exit(-1)
 array = array_pb2.array()
-array.timestamp = int(time.time())
 # Read the existing address book.
 try:
   f = open(sys.argv[1], "rb")
@@ -20,14 +19,17 @@ try:
 except IOError:
   print(sys.argv[1] + ": Could not open file.  Creating a new one.")
 
+myset=array.sets.add()
+myset.timestamp = int(time.time())
 # Add an address.
 while True:
   key = input("Enter a key (or leave blank to finish): ")
+  print(key)
   if key == "":
     break
-  entry=array.entries.add()
-  value = input("Enter a value: ")
+  entry=myset.entries.add()
   entry.key=key
+  value = input("Enter a value: ")
   entry.value=int(value)
 
 # Write the new address book back to disk.
