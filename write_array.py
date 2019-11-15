@@ -1,4 +1,4 @@
-#! /usr/bin/python-3.6
+#! /usr/bin/python3
 
 import array_pb2
 import sys
