@@ -1,3 +1,15 @@
+
+//syntax="proto2";
+//
+//message Submessage {
+//  required int32 value=1;
+//}
+//
+//message FMessage {
+//  repeated Submessage a=1;
+//}
+
+
 #include <stdio.h>
 #include <stdlib.h>
 #include "fmessage.pb-c.h"
@@ -14,6 +26,7 @@ int main (int argc, const char * argv[])
     subs[i-1] = malloc (sizeof (Submessage));
     submessage__init (subs[i-1]);
     subs[i-1]->value = atoi(argv[i]);
+    //free(subs[i-1]);
   }    
   msg.n_a = argc-1;
   msg.a = subs;
@@ -25,8 +38,8 @@ int main (int argc, const char * argv[])
   fwrite (buf, len, 1, stdout);           // Write to stdout to allow direct command line piping
     
   free(buf); // Free the allocated serialized buffer
-  //for (i = 1; i < argc; i++)
-  //  free (subs[i]);
+  for (i = 1; i < argc; i++)
+    free (subs[i-1]);
   free (subs); 
   return 0;
 }
