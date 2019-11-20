@@ -20,7 +20,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include "array.pb-c.c"
+#include "array.pb-c.h"
 
 int main (int argc, const char * argv[]) 
 {
@@ -31,24 +31,26 @@ int main (int argc, const char * argv[])
   unsigned len,i;
   sets = malloc (sizeof (Tutorial__Myset *)); //one insert at once
   entries = malloc (sizeof (Tutorial__Entry *)); //one insert at once
-
   sets[0]=malloc(sizeof(Tutorial__Myset));
   tutorial__myset__init (sets[0]);
   entries[0]=malloc(sizeof(Tutorial__Entry));
   tutorial__entry__init (entries[0]);
 
-  sets[0]->timestamp=1574244029;
-  entries[0]->key[0]='t';
-  entries[0]->key[1]='e';
-  entries[0]->key[2]='m';
-  entries[0]->key[3]='p';
-  entries[0]->key[3]='\0';
-  entries[0]->value=10;
+  entries[0]->key=malloc(sizeof(char)*4);
 
-  sets.n_entries=1;
-  sets.entries=entries
+  //printf("pippo\n");
+  sets[0]->timestamp=1574244029;
+  //printf("pippo\n");
+  sprintf(entries[0]->key,"temp");
+  //printf("pippo\n");
+  entries[0]->value=10;
+  //printf("pippo\n");
+
+
   array.n_sets = 1;
   array.sets =sets;
+  sets[0]->n_entries=1;
+  sets[0]->entries=entries;
 
   len = tutorial__array__get_packed_size (&array); // This is the calculated packing length
   buf = malloc (len);                     // Allocate memory
