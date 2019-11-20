@@ -29,19 +29,25 @@ int main (int argc, const char * argv[])
   Tutorial__Entry **entries;
   void *buf;
   unsigned len,i;
+  // malloc per puntatori
   sets = malloc (sizeof (Tutorial__Myset *)); //one insert at once
   entries = malloc (sizeof (Tutorial__Entry *)*3); //one insert at once
 
-  sets[0]=malloc(sizeof(Tutorial__Myset));
-  tutorial__myset__init (sets[0]);
-
+  //definisco i set per l'array 
   array.n_sets = 1;
   array.sets =sets;
 
+  //creo il primo  set
+  sets[0]=malloc(sizeof(Tutorial__Myset));
+  tutorial__myset__init (sets[0]);
+  // riempio il set di dati 
   sets[0]->timestamp=1574244029;
+
+  // definisco le entries per il set
   sets[0]->n_entries=3;
   sets[0]->entries=entries;
 
+  // riempio le entries di dati
   entries[0]=malloc(sizeof(Tutorial__Entry));
   tutorial__entry__init (entries[0]);
   entries[0]->key=malloc(sizeof(char)*4);
@@ -60,14 +66,15 @@ int main (int argc, const char * argv[])
   sprintf(entries[2]->key,"bat");
   entries[2]->value=42;
 
-
+  //impacchetto tutto
   len = tutorial__array__get_packed_size (&array); // This is the calculated packing length
   buf = malloc (len);                     // Allocate memory
   tutorial__array__pack (&array, buf);             // Pack msg, including submessages
-
+  //via!!
   fprintf(stderr,"Writing %d serialized bytes\n",len); // See the length of message
   fwrite (buf, len, 1, stdout);           // Write to stdout to allow direct command line piping
-    
+
+  //dealloco  
   free(sets[0]); 
   free(entries[0]); 
   free(entries[1]); 
