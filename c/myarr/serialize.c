@@ -30,26 +30,27 @@ int main (int argc, const char * argv[])
   void *buf;
   unsigned len,i;
   sets = malloc (sizeof (Tutorial__Myset *)); //one insert at once
-  entries = malloc (sizeof (Tutorial__Entry *)); //one insert at once
+  entries = malloc (sizeof (Tutorial__Entry *)*3); //one insert at once
   sets[0]=malloc(sizeof(Tutorial__Myset));
   tutorial__myset__init (sets[0]);
+
+  sets[0]->timestamp=1574244029;
+
   entries[0]=malloc(sizeof(Tutorial__Entry));
   tutorial__entry__init (entries[0]);
-
   entries[0]->key=malloc(sizeof(char)*4);
-
-  //printf("pippo\n");
-  sets[0]->timestamp=1574244029;
-  //printf("pippo\n");
   sprintf(entries[0]->key,"temp");
-  //printf("pippo\n");
   entries[0]->value=10;
-  //printf("pippo\n");
 
+  entries[1]=malloc(sizeof(Tutorial__Entry));
+  tutorial__entry__init (entries[1]);
+  entries[1]->key=malloc(sizeof(char)*4);
+  sprintf(entries[1]->key,"pres");
+  entries[1]->value=1013;
 
   array.n_sets = 1;
   array.sets =sets;
-  sets[0]->n_entries=1;
+  sets[0]->n_entries=2;
   sets[0]->entries=entries;
 
   len = tutorial__array__get_packed_size (&array); // This is the calculated packing length
