@@ -31,10 +31,16 @@ int main (int argc, const char * argv[])
   unsigned len,i;
   sets = malloc (sizeof (Tutorial__Myset *)); //one insert at once
   entries = malloc (sizeof (Tutorial__Entry *)*3); //one insert at once
+
   sets[0]=malloc(sizeof(Tutorial__Myset));
   tutorial__myset__init (sets[0]);
 
+  array.n_sets = 1;
+  array.sets =sets;
+
   sets[0]->timestamp=1574244029;
+  sets[0]->n_entries=3;
+  sets[0]->entries=entries;
 
   entries[0]=malloc(sizeof(Tutorial__Entry));
   tutorial__entry__init (entries[0]);
@@ -48,10 +54,12 @@ int main (int argc, const char * argv[])
   sprintf(entries[1]->key,"pres");
   entries[1]->value=1013;
 
-  array.n_sets = 1;
-  array.sets =sets;
-  sets[0]->n_entries=2;
-  sets[0]->entries=entries;
+  entries[2]=malloc(sizeof(Tutorial__Entry));
+  tutorial__entry__init (entries[2]);
+  entries[2]->key=malloc(sizeof(char)*4);
+  sprintf(entries[2]->key,"bat");
+  entries[2]->value=42;
+
 
   len = tutorial__array__get_packed_size (&array); // This is the calculated packing length
   buf = malloc (len);                     // Allocate memory
@@ -62,6 +70,8 @@ int main (int argc, const char * argv[])
     
   free(sets[0]); 
   free(entries[0]); 
+  free(entries[1]); 
+  free(entries[2]); 
   free(sets); 
   free(entries); 
   return 0;
