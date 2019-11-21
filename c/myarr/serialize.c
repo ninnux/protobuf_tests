@@ -26,14 +26,10 @@ int main (int argc, const char * argv[])
 {
   Tutorial__Array array = TUTORIAL__ARRAY__INIT;
   Tutorial__Myset **sets;
-  Tutorial__Entry **entries;
-  Tutorial__Entry **entries2;
   void *buf;
   unsigned len,i;
   // malloc per puntatori
-  sets = malloc (sizeof (Tutorial__Myset *)); //one insert at once
-  entries = malloc (sizeof (Tutorial__Entry *)*3); //one insert at once
-  entries2 = malloc (sizeof (Tutorial__Entry *)*2); //one insert at once
+  sets = malloc (sizeof (Tutorial__Myset *)*2); //one insert at once
 
   //definisco i set per l'array 
   array.n_sets = 2;
@@ -46,6 +42,8 @@ int main (int argc, const char * argv[])
   sets[0]->timestamp=1574244029;
 
   // definisco le entries per il set
+  Tutorial__Entry **entries;
+  entries = malloc (sizeof (Tutorial__Entry *)*3); //one insert at once
   sets[0]->n_entries=3;
   sets[0]->entries=entries;
 
@@ -75,6 +73,9 @@ int main (int argc, const char * argv[])
   sets[1]->timestamp=1574244329;
 
   // definisco le entries per il set
+  Tutorial__Entry **entries2;
+  entries2 = malloc (sizeof (Tutorial__Entry *)*2); //one insert at once
+
   sets[1]->n_entries=2;
   sets[1]->entries=entries2;
 
