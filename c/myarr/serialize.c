@@ -50,13 +50,13 @@ int main (int argc, const char * argv[])
   // riempio le entries di dati
   entries[0]=malloc(sizeof(Tutorial__Entry));
   tutorial__entry__init (entries[0]);
-  entries[0]->key=malloc(sizeof(char)*4);
+  entries[0]->key=malloc(sizeof(char)*5);
   sprintf(entries[0]->key,"temp");
   entries[0]->value=10;
 
   entries[1]=malloc(sizeof(Tutorial__Entry));
   tutorial__entry__init (entries[1]);
-  entries[1]->key=malloc(sizeof(char)*4);
+  entries[1]->key=malloc(sizeof(char)*5);
   sprintf(entries[1]->key,"pres");
   entries[1]->value=1013;
 
@@ -82,13 +82,13 @@ int main (int argc, const char * argv[])
   // riempio le entries di dati
   entries2[0]=malloc(sizeof(Tutorial__Entry));
   tutorial__entry__init (entries2[0]);
-  entries2[0]->key=malloc(sizeof(char)*4);
+  entries2[0]->key=malloc(sizeof(char)*5);
   sprintf(entries2[0]->key,"temp");
   entries2[0]->value=10;
 
   entries2[1]=malloc(sizeof(Tutorial__Entry));
   tutorial__entry__init (entries2[1]);
-  entries2[1]->key=malloc(sizeof(char)*4);
+  entries2[1]->key=malloc(sizeof(char)*5);
   sprintf(entries2[1]->key,"pres");
   entries2[1]->value=1013;
 
@@ -107,7 +107,6 @@ int main (int argc, const char * argv[])
   free(entries[2]); 
   free(entries2[0]); 
   free(entries2[1]); 
-  free(entries2[2]); 
   free(sets); 
   free(entries); 
   free(entries2); 
