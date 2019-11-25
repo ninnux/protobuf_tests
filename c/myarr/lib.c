@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "array.pb-c.h"
 
 
@@ -44,11 +45,31 @@ int impacchetto(Tutorial__Array *array){
   int len=0;
   uint8_t* buf;
   len = tutorial__array__get_packed_size (array); // This is the calculated packing length
-  //printf("Writing %d serialized bytes\n",len); // See the length of message
+  printf("Writing %d serialized bytes\n",len); // See the length of message
   buf = malloc (len);                     // Allocate memory
   tutorial__array__pack (array, buf);             // Pack msg, including submessages
-  //printf("buf:%s",(char*)buf);   
-  fwrite (buf, len, 1, stdout); 
+  printf("buf:%s",(char*)buf);   
+  //fwrite (buf, len, 1, stdout); 
+  return 0;
+}
+
+int serialize(Tutorial__Array *array, uint8_t *buf){
+  int len=0;
+  len = tutorial__array__get_packed_size (array); // This is the calculated packing length
+  printf("sizeof:%d\n",sizeof(buf));
+  if((size_t) sizeof(buf)>len){
+    printf("Serialize: Writing %d serialized bytes\n",len); // See the length of message
+    //buf = malloc (len);                     // Allocate memory
+    tutorial__array__pack (array, buf);             // Pack msg, including submessages
+    return 0;
+  }else{
+    return 1;
+  } 
+}
+
+int deserialize(Tutorial__Array *array, uint8_t *buf){
+  printf("buf len:%d\n",strlen((char*)buf)); // See the length of message
+  array = tutorial__array__unpack(NULL,strlen((char*)buf),(char*)buf);
   return 0;
 }
 
@@ -61,5 +82,16 @@ int dealloco(Tutorial__Array *array){
 	free(array->sets[i]->entries);
   }
   free(array->sets);
+  return 0;
+}
+
+
+int print_all(Tutorial__Array *array){
+  int i,k;
+  for(i=0;i<array->n_sets;i++){
+	for(k=0;k<array->sets[i]->n_entries;k++){
+ 	 	printf("t:%d %s %d\n",array->sets[i]->timestamp,array->sets[i]->entries[k]->key,array->sets[i]->entries[k]->value);
+	}
+  }
   return 0;
 }
