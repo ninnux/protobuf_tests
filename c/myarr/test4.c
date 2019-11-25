@@ -44,14 +44,18 @@ int test4(){
   myarray_add_entry(&array,set3,"batt",42);
   myarray_add_entry(&array,set3,"wind",223);
 
-  //impacchetto(&array);
-  char buffer[1024];
-  if(serialize(&array,buffer)==0){
-    printf("buf:%s\n",buffer);
-    printf("len:%d\n",strlen(buffer));
-  }else{
-    printf("error");
-  }
+  char *buffer;
+  serialize(&array,&buffer);
+  printf("buffer:%s\n",buffer);
+
+  ////impacchetto(&array);
+  //char buffer[1024];
+  //if(serialize(&array,buffer)==0){
+  //  printf("buf:%s\n",buffer);
+  //  printf("len:%d\n",strlen(buffer));
+  //}else{
+  //  printf("error");
+  //}
 
   //Tutorial__Array array2 = TUTORIAL__ARRAY__INIT;
   //deserialize(&array2,buf);

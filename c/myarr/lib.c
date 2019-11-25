@@ -53,18 +53,13 @@ int impacchetto(Tutorial__Array *array){
   return 0;
 }
 
-int serialize(Tutorial__Array *array, uint8_t *buf){
+int serialize(Tutorial__Array *array, uint8_t **buf){
   int len=0;
   len = tutorial__array__get_packed_size (array); // This is the calculated packing length
-  printf("sizeof:%d\n",sizeof(buf));
-  if((size_t) sizeof(buf)>len){
-    printf("Serialize: Writing %d serialized bytes\n",len); // See the length of message
-    //buf = malloc (len);                     // Allocate memory
-    tutorial__array__pack (array, buf);             // Pack msg, including submessages
-    return 0;
-  }else{
-    return 1;
-  } 
+  printf("Serialize: Writing %d serialized bytes\n",len); // See the length of message
+  *buf = malloc (len);                     // Allocate memory
+  tutorial__array__pack (array, *buf);             // Pack msg, including submessages
+  return 0;
 }
 
 int deserialize(Tutorial__Array *array, uint8_t *buf){
