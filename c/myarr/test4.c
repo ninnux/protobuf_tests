@@ -44,6 +44,8 @@ int test4(){
   myarray_add_entry(&array,set3,"batt",42);
   myarray_add_entry(&array,set3,"wind",223);
 
+  print_all(&array);
+
   char *buffer;
   serialize(&array,&buffer);
   printf("buffer:%s\n",buffer);
@@ -57,9 +59,10 @@ int test4(){
   //  printf("error");
   //}
 
-  //Tutorial__Array array2 = TUTORIAL__ARRAY__INIT;
-  //deserialize(&array2,buf);
-  //print_all(&array2);
+  Tutorial__Array array2 = TUTORIAL__ARRAY__INIT;
+  Tutorial__Array *parray2=&array2;
+  deserialize(&parray2,buffer);
+  print_all(*parray2);
   //dealloco(&array);
   return 0;
 }

@@ -62,9 +62,16 @@ int serialize(Tutorial__Array *array, uint8_t **buf){
   return 0;
 }
 
-int deserialize(Tutorial__Array *array, uint8_t *buf){
+//int deserialize(Tutorial__Array *array, uint8_t *buf){
+//  printf("buf len:%d\n",strlen((char*)buf)); // See the length of message
+//  array = tutorial__array__unpack(NULL,strlen((char*)buf),(uint8_t *)buf);
+//  printf("first value:%d\n",array->sets[0]->entries[0]->value);
+//  return 0;
+//}
+int deserialize(Tutorial__Array **array, uint8_t *buf){
   printf("buf len:%d\n",strlen((char*)buf)); // See the length of message
-  array = tutorial__array__unpack(NULL,strlen((char*)buf),(char*)buf);
+  *array = tutorial__array__unpack(NULL,strlen((char*)buf),(uint8_t *)buf);
+  //printf("first value:%d\n",*array->sets[0]->entries[0]->value);
   return 0;
 }
 
