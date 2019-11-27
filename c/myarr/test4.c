@@ -58,11 +58,36 @@ int test4(){
   //}else{
   //  printf("error");
   //}
+  int i,k;
+  printf("lunghezza buf:%d\n",strlen((char*)buffer));
+  Tutorial__Array *array2;
+  //array2=tutorial__array__unpack(NULL,strlen((char*)buffer),(uint8_t *)buffer);
+  //Tutorial__Array *parray2=&array2;
+  //deserialize(&parray2,buffer);
 
-  Tutorial__Array array2 = TUTORIAL__ARRAY__INIT;
-  Tutorial__Array *parray2=&array2;
-  deserialize(&parray2,buffer);
-  print_all(*parray2);
+  array2 = tutorial__array__unpack(NULL,strlen(buffer),buffer); // Deserialize the serialized input
+
+  Tutorial__Myset *set4;
+  set4= malloc (sizeof (Tutorial__Myset)); //one insert at once
+  myarray_add_set(array2,set4,55555555);
+  myarray_add_entry(array2,set4,"temp",55);
+  myarray_add_entry(array2,set4,"pres",5555);
+  myarray_add_entry(array2,set4,"batt",55);
+  myarray_add_entry(array2,set4,"wind",555);
+
+
+  if (array2 == NULL)
+     {
+         fprintf(stderr,"error unpacking incoming message\n");
+         return 1;
+     }
+  for (i = 0; i < array2->n_sets; i++){
+      for (k = 0; k < array2->sets[i]->n_entries; k++){
+              printf ("%d %s %d\n", array2->sets[i]->timestamp,array2->sets[i]->entries[k]->key,array2->sets[i]->entries[k]->value);
+      }
+  }
+  
+//print_all(&array2);
   //dealloco(&array);
   return 0;
 }
